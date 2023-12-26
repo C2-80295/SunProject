@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage ('SCM') {
             steps {
-                git branch: 'main', url: 'https://c2-80295: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@github.com/C2-80295/Sample.git'
+                git branch: 'main', url: 'https://github.com/C2-80295/SunProject.git'
             }
         }
         stage ('docker login') {
