@@ -34,12 +34,10 @@ pipeline {
                 sh '/usr/bin/docker image push jakejake23/sunproject'
             }
         }
-        stage ('docker create service') {
+        stage ('docker create container') {
             steps {
-                sh '/usr/bin/docker service create --name myservice --replicas 5 -p 9090:9000 jakejake23/sunproject'
+                sh '/usr/bin/docker container run -d -p 9090:9000 jakejake23/sunproject'
             }
-            
-        }
     }
 }
 
