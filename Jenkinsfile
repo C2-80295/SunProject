@@ -36,7 +36,7 @@ pipeline {
         }
         stage ('docker create service') {
             steps {
-                sh '/usr/local/bin/docker service create --name myservice --replicas 5 -p 9090:9000 jakejake23/sunproject'
+                sh '/usr/bin/docker service create --name myservice --replicas 5 -p 9090:9000 jakejake23/sunproject'
             }
             
         }
