@@ -24,6 +24,11 @@ pipeline {
         //         mail bcc: '', body: 'Build Failed', cc: '', from: 'manojjakcin.2001@gmail.com', replyTo: '', subject: 'Build Failed', to: 'manojjakcin@gmail.com'
         //     }
         // }
+        stage ("notification to mail") {
+            steps {
+                mail bcc: '', body: 'Build Success', cc: '', from: 'manojjakcin.2001@gmail.com', replyTo: 'manojjakcin@gmail.com', subject: 'Build Success', to: 'manojjakcin@gmail.com'
+            }
+        }
         stage ('docker push image') {
             steps {
                 sh '/usr/bin/docker image push jakejake23/sunproject'
