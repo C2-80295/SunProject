@@ -1,5 +1,7 @@
 // Setup the webhook to send the notification to Jenkins Machine
 
+import 
+
 pipeline {
     agent any
 
@@ -24,10 +26,10 @@ pipeline {
         //         mail bcc: '', body: 'Build Failed', cc: '', from: 'manojjakcin.2001@gmail.com', replyTo: '', subject: 'Build Failed', to: 'manojjakcin@gmail.com'
         //     }
         // }
-        stage ("notification to mail") {
-            steps {
-                mail bcc: '', body: 'Build Success', cc: '', from: 'manojjakcin.2001@gmail.com', replyTo: 'manojjakcin@gmail.com', subject: 'Build Success', to: 'manojjakcin@gmail.com'
-            }
+        post {
+        always {
+            emailext body: 'A Test EMail', recipientProviders: [[$class: 'manojjakcin.2001@gmail.com'], [$class: 'manojjakcin@gmail.com']], subject: 'Test'
+        }
         }
         stage ('docker push image') {
             steps {
