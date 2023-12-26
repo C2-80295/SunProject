@@ -31,7 +31,7 @@ pipeline {
         }
         stage ('docker remove container') {
             steps {
-                sh '/usr/bin/docker container rm -f jakejake23/sunproject'
+                sh '/usr/bin/docker container rm -f sunproject'
             }   
         }
         stage ('docker create container') {
