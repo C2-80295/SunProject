@@ -19,20 +19,20 @@ pipeline {
                 sh '/usr/bin/docker image build -t jakejake23/sunproject .'
             }
         }
-        // stage('send notification to mail if build fails') {
-        //     steps {
-        //         script {
-        //             emailext body: 'Jenkins Pipeline Failed',
-        //             recipientProviders: [developers(), requester()],
-        //             subject: 'Jenkins Pipeline Failed',
-        //             to: 'manojjakcin@gmail.com'  // Specify the recipient email address
-        //         }
-        //     }
-        // }
+        stage('send notification to mail if build fails') {
+            steps {
+                mail bcc: '', body: 'Build Failed', cc: '', from: 'manojjakcin.2001@gmail.com', replyTo: '', subject: 'Build Failed', to: 'manojjakcin@gmail.com'
+            }
+        }
         stage ('docker push image') {
             steps {
                 sh '/usr/bin/docker image push jakejake23/sunproject'
             }
+        }
+        stage ('docker remove container') {
+            steps {
+                sh '/usr/bin/docker container rm -f sunproject'
+            }   
         }
         stage ('docker create container') {
             steps {
