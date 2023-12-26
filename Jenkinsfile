@@ -36,7 +36,7 @@ pipeline {
         }
         stage ('docker create container') {
             steps {
-                sh '/usr/bin/docker container run -d -p 9090:9000 jakejake23/sunproject'
+                sh '/usr/bin/docker container run -d -p 9090:80 jakejake23/sunproject'
             }
     }
 }
