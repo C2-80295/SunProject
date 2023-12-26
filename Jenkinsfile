@@ -19,11 +19,6 @@ pipeline {
                 sh '/usr/bin/docker image build -t jakejake23/sunproject .'
             }
         }
-        // stage('send notification to mail if build fails') {
-        //     steps {
-        //         mail bcc: '', body: 'Build Failed', cc: '', from: 'manojjakcin.2001@gmail.com', replyTo: '', subject: 'Build Failed', to: 'manojjakcin@gmail.com'
-        //     }
-        // }
         stage ('docker push image') {
             steps {
                 sh '/usr/bin/docker image push jakejake23/sunproject'
@@ -42,7 +37,7 @@ pipeline {
 }
 post {
         always {
-            emailext body: 'A Test EMail', recipientProviders: [[$class: 'manojjakcin.2001@gmail.com'], [$class: 'manojjakcin@gmail.com']], subject: 'Test'
+            emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
         }
     }
 }
