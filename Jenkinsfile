@@ -11,12 +11,12 @@ pipeline {
         }
         stage ('docker login') {
             steps {
-                sh 'echo dckr_pat_FxQD9x_Fec84SBAiHZuCeAkz8Rs | /usr/bin/docker login -u jakejake23 --password-stdin'
+                sh 'sudo echo dckr_pat_FxQD9x_Fec84SBAiHZuCeAkz8Rs | /usr/bin/docker login -u jakejake23 --password-stdin'
             }
         }
         stage ('docker build image') {
             steps {
-                sh '/usr/bin/docker build -t jakejake23/sunproject .'
+                sh 'sudo /usr/bin/docker build -t jakejake23/sunproject .'
             }
         }
         stage('send notification to mail if build fails') {
@@ -31,12 +31,12 @@ pipeline {
         }
         stage ('docker push image') {
             steps {
-                sh '/usr/bin/docker push jakejake23/sunproject'
+                sh 'sudo /usr/bin/docker push jakejake23/sunproject'
             }
         }
         stage ('docker create service') {
             steps {
-                sh '/usr/local/bin/docker service create --name myservice --replicas 5 -p 9090:9000 jakejake23/sunproject'
+                sh 'sudo /usr/local/bin/docker service create --name myservice --replicas 5 -p 9090:9000 jakejake23/sunproject'
             }
             
         }
