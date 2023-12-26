@@ -31,7 +31,7 @@ pipeline {
         }
         stage ('docker push image') {
             steps {
-                sh '/usr/bin/docker push jakejake23/sunproject'
+                sh '/usr/bin/docker image push jakejake23/sunproject'
             }
         }
         stage ('docker create service') {
