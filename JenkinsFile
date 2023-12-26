@@ -1,0 +1,44 @@
+// Setup the webhook to send the notification to Jenkins Machine
+
+pipeline {
+    agent any
+
+    stages {
+        stage ('docker login') {
+            steps {
+                sh 'echo dckr_pat_FxQD9x_Fec84SBAiHZuCeAkz8Rs | /usr/bin/docker login -u jakejake23 --password-stdin'
+            }
+        }
+        stage ('docker build image') {
+            steps {
+                sh '/usr/bin/docker build -t jakejake23/sunproject .'
+            }
+        }
+        stage('send notification to mail if build fails') {
+            steps {
+                script {
+                    emailext body: 'Jenkins Pipeline Failed',
+                    recipientProviders: [developers(), requester()],
+                    subject: 'Jenkins Pipeline Failed',
+                    to: 'manojjakcin@gmail.com'  // Specify the recipient email address
+                }
+            }
+        }
+        stage ('docker push image') {
+            steps {
+                sh '/usr/bin/docker push jakejake23/sunproject'
+            }
+        }
+        stage ('docker remove service') {
+            steps {
+                sh '/usr/local/bin/docker service rm myservice'
+            }
+        }
+        stage ('docker create service') {
+            steps {
+                sh '/usr/local/bin/docker service create --name myservice --replicas 5 -p 9090:9000 jakejake23/sunproject'
+            }
+        }
+    }
+}
+
