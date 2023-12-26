@@ -16,7 +16,7 @@ pipeline {
         }
         stage ('docker build image') {
             steps {
-                sh '/usr/bin/docker build -t jakejake23/sunproject .'
+                sh '/usr/bin/docker image build -t jakejake23/sunproject .'
             }
         }
         stage('send notification to mail if build fails') {
